@@ -23,7 +23,7 @@ interface Job
      *
      * @return void
      */
-    public function fire();
+    public function handle();
 
     /**
      * Release the job back into the queue.
