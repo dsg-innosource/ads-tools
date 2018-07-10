@@ -13,7 +13,7 @@ You can install the ADS Tools via composer using the following steps:
     }
 ```
 
-2. Add the pacakge to your `composer.json` require list using:
+2. Add the package to your `composer.json` require list using:
 
 ```
     composer require resultdata/ads-tools
