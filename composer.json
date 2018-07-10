@@ -1,0 +1,24 @@
+{
+    "name": "resultdata/ads-tools",
+    "authors": [
+        {
+            "name": "Vince Mitchell",
+            "email": "vince.mitchell@resultdata.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ResultData\\ADSTools\\": "src/"
+        }
+    },
+    "require": {
+        "illuminate/contracts": "^5.6"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ResultData\\ADSTools\\AdsToolsServiceProvider"
+            ]
+        }
+    }
+}
