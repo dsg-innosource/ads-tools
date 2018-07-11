@@ -37,55 +37,50 @@ class MigrateStoredProcedures extends Command
 
         $errors = 0;
 
-        $procs = $this->getProcs($directory);
+        $procs = rglob(base_path($directory . '*.sql'));
 
-        if (!sizeof($procs)) {
+        if (!count($procs)) {
             return $this->info('There are no stored procedures to deploy.');
         }
 
         for ($i = 1; $i < 3; $i++) {
-            foreach ($procs as $proc) {
-                $resp = $this->deployProc($directory . $proc, $i);
-                if ($resp == 'error') {
-                    $errors++;
+            if (count($procs)) {
+                $this->info("Starting Pass $i...");
+                foreach ($procs as $proc) {
+                    if ($this->deployProc($proc)) {
+                        $procs = array_diff($procs, [$proc]);
+                    }
                 }
             }
         }
 
-        if ($errors) {
-            return $this->error('Check the log above, something went wrong!');
+        if (count($procs)) {
+            $this->line('');
+            $this->error('We were unable to deploy the following procedures:');
+            collect($procs)->each(function ($proc) {
+                $proc_name = str_replace(base_path(config('ads-tools.directories.procs')), '', $proc);
+                $this->comment('    : ' . $proc_name);
+            });
+            $this->error('Please review these procedures for any errors.');
+            $this->line('');
         }
     }
 
-    public function getProcs($directory)
-    {
-        $procs = [];
-
-        foreach (scandir($directory) as $file) {
-            if (strtolower(substr($file, strlen($file) - 3, 3)) == 'sql') {
-                array_push($procs, $file);
-            }
-        }
-
-        return $procs;
-    }
-
-    public function deployProc($proc, $pass)
+    public function deployProc($proc)
     {
         $sql = file_get_contents($proc);
+        $proc_name = str_replace(base_path(config('ads-tools.directories.procs')), '', $proc);
 
-        try {
-            $resp = DB::connection()->getPdo()->exec($sql);
+        $resp = DB::connection()->getPdo()->exec($sql);
 
-            if ($resp && $pass == 2) {
-                $this->error('An error occured with "' . $proc . '"');
-                return 'error';
-            }
-        } catch (Exception $e) {
+        $this->output->writeln('<comment>Deploying:</comment>   ' . $proc_name);
+
+        if ($resp) {
+            $this->output->writeln('<error>Error:</error>       ' . $proc_name);
+            return false;
         }
 
-        if ($pass == 2) {
-            $this->info('Deployed ' . $proc);
-        }
+        $this->output->writeln('<info>Deployed:</info>    ' . $proc_name);
+        return true;
     }
 }

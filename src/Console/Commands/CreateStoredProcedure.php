@@ -34,9 +34,18 @@ class CreateStoredProcedure extends Command
             File::makeDirectory(base_path('/') . $directory, 0775, true);
         }
 
-        $database_name = $this->ask('What database is this proc for?');
+        $currentEnvDB = config('database.connections.' . config('database.default') . '.database');
 
-        $proc_name = $this->ask('What is the name of the proc?');
+        $database_name = $this->ask('What database is this proc for?', $currentEnvDB);
+
+        $category_name = $this->anticipate('What category is this test for? (tier1, tier2, etc)', ['tier1', 'tier2'], '');
+
+        $proc_name = $this->ask('What is the name of the procedure?');
+
+        if (!$proc_name) {
+            $this->error('Procedure name is required!');
+            die();
+        }
 
         $file_name = strtolower(str_replace(' ', '_', $proc_name)) . '.sql';
 
@@ -45,6 +54,17 @@ class CreateStoredProcedure extends Command
                     ->with('proc_name', $proc_name)
                     ->render();
 
-        file_put_contents($directory . $file_name, $contents);
+        if ($category_name) {
+            $category_path = $directory . '/' . $category_name;
+            $file_path = $category_path . '/' . $file_name;
+
+            if (!File::exists($category_path)) {
+                File::makeDirectory($category_path, 0775, true);
+            }
+        } else {
+            $file_path = $directory . '/' . $file_name;
+        }
+
+        file_put_contents($file_path, $contents);
     }
 }

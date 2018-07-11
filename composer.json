@@ -1,5 +1,6 @@
 {
     "name": "resultdata/ads-tools",
+    "description": "A package containing miscellaneous ADS tools.",
     "authors": [
         {
             "name": "Vince Mitchell",
