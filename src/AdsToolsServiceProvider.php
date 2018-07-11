@@ -25,6 +25,7 @@ class ADSToolsServiceProvider extends ServiceProvider
         $this->configure();
         $this->offerPublishing();
         $this->registerCommands();
+        $this->registerHelpers();
     }
 
     public function configure()
@@ -51,6 +52,11 @@ class ADSToolsServiceProvider extends ServiceProvider
         $this->commands(MigrateFunctions::class);
         $this->commands(CreateStoredProcedure::class);
         $this->commands(MigrateStoredProcedures::class);
+    }
+
+    public function registerHelpers()
+    {
+        require __DIR__ . '/../helpers.php';
     }
 
     protected function offerPublishing()
