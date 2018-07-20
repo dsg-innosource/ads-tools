@@ -17314,7 +17314,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(134);
-module.exports = __webpack_require__(158);
+module.exports = __webpack_require__(162);
 
 
 /***/ }),
@@ -17332,6 +17332,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('connections-index', __webpack_require__(158));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('connections-show', __webpack_require__(167));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('resource-database', __webpack_require__(170));
 
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#ads-tools'
@@ -29705,9 +29709,638 @@ webpackContext.id = 157;
 
 /***/ }),
 /* 158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(159)
+/* script */
+var __vue_script__ = __webpack_require__(160)
+/* template */
+var __vue_template__ = __webpack_require__(161)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/connections/index.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-090f6ade", Component.options)
+  } else {
+    hotAPI.reload("data-v-090f6ade", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 159 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 160 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        connections: Object,
+        baseUrl: String
+    }
+});
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex flex-col bg-white p-4 rounded shadow" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._l(_vm.connections, function(connection, idx) {
+        return _c(
+          "div",
+          {
+            key: idx,
+            staticClass:
+              "flex text-sm text-grey py-2 hover:bg-grey-lighter hover:text-grey-darker"
+          },
+          [
+            _c("div", { staticClass: "w-1/5 pl-2" }, [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "no-underline text-orange hover:text-orange-dark",
+                  attrs: {
+                    href: _vm.baseUrl + "/connections/" + connection.name
+                  }
+                },
+                [_vm._v(_vm._s(connection.database))]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "w-1/5" }, [
+              _vm._v(_vm._s(connection.name))
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "w-1/5" }, [
+              _vm._v(_vm._s(connection.driver))
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "w-1/5" }, [
+              _vm._v(_vm._s(connection.host))
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "w-1/5" }, [
+              _vm._v(_vm._s(connection.port))
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "w-1/5 pr-2" }, [
+              _vm._v(_vm._s(connection.username))
+            ])
+          ]
+        )
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "flex text-xs uppercase text-grey-dark border-b py-2" },
+      [
+        _c("div", { staticClass: "w-1/5 pl-2" }, [_vm._v("Database")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-1/5" }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-1/5" }, [_vm._v("Driver")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-1/5" }, [_vm._v("Host")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-1/5" }, [_vm._v("Port")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-1/5 pr-2" }, [_vm._v("Username")])
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-090f6ade", module.exports)
+  }
+}
+
+/***/ }),
+/* 162 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(159)
+/* script */
+var __vue_script__ = __webpack_require__(168)
+/* template */
+var __vue_template__ = __webpack_require__(169)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/connections/show.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-79887e0e", Component.options)
+  } else {
+    hotAPI.reload("data-v-79887e0e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 168 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        resource: Object
+    }
+});
+
+/***/ }),
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex" },
+    [
+      _c("resource-database", {
+        tag: "component",
+        attrs: { resource: _vm.resource }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-79887e0e", module.exports)
+  }
+}
+
+/***/ }),
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(159)
+/* script */
+var __vue_script__ = __webpack_require__(171)
+/* template */
+var __vue_template__ = __webpack_require__(172)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/connections/database.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b16bbde8", Component.options)
+  } else {
+    hotAPI.reload("data-v-b16bbde8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 171 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        resource: Object
+    },
+    data: function data() {
+        return {
+            selected_table: null
+        };
+    },
+    mounted: function mounted() {
+        this.selected_table = this.tables[0];
+    },
+
+    computed: {
+        tables: function tables() {
+            return this.resource.tables;
+        }
+    },
+    methods: {
+        selectTable: function selectTable(table) {
+            this.selected_table = table;
+        }
+    }
+});
+
+/***/ }),
+/* 172 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "flex w-full" }, [
+    _c("div", { staticClass: "w-1/4 mr-2" }, [
+      _c("div", { staticClass: "flex flex-col bg-white rounded shadow" }, [
+        _c("div", { staticClass: "flex p-4 border-b text-grey-dark" }, [
+          _vm._v(_vm._s(_vm.resource.name) + " Tables")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex flex-col p-4" },
+          _vm._l(_vm.tables, function(table, idx) {
+            return _c(
+              "div",
+              {
+                key: idx,
+                staticClass:
+                  "cursor-pointer rounded no-underline text-orange hover:text-orange-dark p-1",
+                class: { "bg-orange-lightest": table == _vm.selected_table },
+                on: {
+                  click: function($event) {
+                    _vm.selectTable(table)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(table.name) + " (" + _vm._s(table.rowCount) + ")")]
+            )
+          })
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "w-3/4 ml-2" }, [
+      _vm.selected_table
+        ? _c("div", [
+            _c(
+              "div",
+              { staticClass: "flex flex-col bg-white rounded shadow" },
+              [
+                _c("div", { staticClass: "flex p-4 border-b text-grey-dark" }, [
+                  _vm._v(_vm._s(_vm.selected_table.name) + " Columns")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex flex-col p-4" }, [
+                  _c(
+                    "div",
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _vm._l(_vm.selected_table.columns, function(col, idx) {
+                        return _c(
+                          "div",
+                          {
+                            key: idx,
+                            staticClass:
+                              "flex text-sm text-grey py-2 hover:bg-orange-lighter hover:text-orange-darker"
+                          },
+                          [
+                            _c("div", { staticClass: "flex-1 pl-2" }, [
+                              _vm._v(_vm._s(col.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "w-64" }, [
+                              _vm._v(_vm._s(col.type))
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "w-64" }, [
+                              _vm._v(_vm._s(col.default))
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "w-32 pr-2" }, [
+                              _vm._v(_vm._s(col.nullable))
+                            ])
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ]
+            )
+          ])
+        : _vm._e()
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "flex text-xs uppercase text-grey-dark border-b py-2" },
+      [
+        _c("div", { staticClass: "flex-1 pl-2" }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-64" }, [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-64" }, [_vm._v("Default")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-32 pr-2" }, [_vm._v("Nullable")])
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b16bbde8", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
