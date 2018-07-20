@@ -2,8 +2,6 @@
 
 namespace ResultData\ADSTools;
 
-use Illuminate\Support\Facades\DB;
-
 class Column
 {
     public $name;
@@ -20,5 +18,20 @@ class Column
         $this->type = $type;
         $this->default = $default;
         $this->nullable = $nullable;
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toArray());
+    }
+
+    public function toArray()
+    {
+        return [
+            'name' => $this->name,
+            'type' => $this->type,
+            'default' => $this->default,
+            'nullable' => $this->nullable,
+        ];
     }
 }
