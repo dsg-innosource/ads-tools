@@ -1,9 +1,9 @@
 <template>
-    <div class="flex w-full">
-        <div class="w-1/4 mr-2">
-            <div class="flex flex-col bg-white rounded shadow">
+    <div class="flex flex-grow">
+        <div class="mr-2">
+            <div class="flex flex-col bg-white rounded shadow min-h-full max-h-full">
                 <div class="flex p-4 border-b text-grey-dark">{{resource.name}} Tables</div>
-                <div class="flex flex-col p-4">
+                <div class="flex flex-col p-4 overflow-y-scroll">
                     <div
                         v-for="(table, idx) in tables"
                         :key="idx"
@@ -13,10 +13,13 @@
                 </div>
             </div>
         </div>
-        <div class="w-3/4 ml-2">
+        <div class="flex-1 ml-2">
             <div v-if="selected_table">
                 <div class="flex flex-col bg-white rounded shadow">
-                    <div class="flex p-4 border-b text-grey-dark">{{selected_table.name}} Columns</div>
+                    <div class="flex p-4 border-b text-grey-dark">
+                        <div class="flex-1">{{selected_table.name}} Columns</div>
+                        <div @click="previewSelectedTable">preview</div>
+                    </div>
                     <div class="flex flex-col p-4">
                         <div>
                             <div class="flex text-xs uppercase text-grey-dark border-b py-2">
@@ -35,6 +38,23 @@
                     </div>
                 </div>
             </div>
+            <div v-if="preview" class="mt-8">
+                <div class="flex flex-col bg-white rounded shadow">
+                    <div class="flex p-4 border-b text-grey-dark">
+                        <div class="flex-1">{{selected_table.name}} Data</div>
+                    </div>
+                    <div class="flex flex-col p-4">
+                        <div>
+                            <div class="flex justify-between text-xs uppercase text-grey-dark border-b py-2">
+                                <div class="pl-2" v-for="(row, idx) in preview[0]" :key="idx">{{idx}}</div>
+                            </div>
+                            <div class="flex justify-between text-sm text-grey py-2 hover:bg-orange-lighter hover:text-orange-darker" v-for="(row, idx) in preview" :key="idx">
+                                <div v-for="(entry, idx2) in row" :key="idx2" class="pl-2">{{entry}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -45,7 +65,8 @@ export default {
     },
     data() {
         return {
-            selected_table: null
+            selected_table: null,
+            preview: null
         }
     },
     mounted() {
@@ -59,6 +80,13 @@ export default {
     methods: {
         selectTable(table) {
             this.selected_table = table;
+        },
+        previewSelectedTable() {
+            var vThis = this;
+            axios.post(top.location.href + '/preview', this.selected_table)
+                .then(response => {
+                    vThis.preview = response.data;
+                })
         }
     }
 }

@@ -17325,13 +17325,28 @@ module.exports = __webpack_require__(162);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
 
 
 
+window.axios = __webpack_require__(138);
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('connections-index', __webpack_require__(158));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('connections-show', __webpack_require__(167));
@@ -29909,7 +29924,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex flex-col bg-white p-4 rounded shadow" },
+    { staticClass: "flex flex-col bg-white p-4 rounded shadow w-full h-full" },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -30080,7 +30095,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex" },
+    { staticClass: "flex flex-1" },
     [
       _c("resource-database", {
         tag: "component",
@@ -30193,6 +30208,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -30200,7 +30235,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            selected_table: null
+            selected_table: null,
+            preview: null
         };
     },
     mounted: function mounted() {
@@ -30215,6 +30251,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         selectTable: function selectTable(table) {
             this.selected_table = table;
+        },
+        previewSelectedTable: function previewSelectedTable() {
+            var vThis = this;
+            axios.post(top.location.href + '/preview', this.selected_table).then(function (response) {
+                vThis.preview = response.data;
+            });
         }
     }
 });
@@ -30227,38 +30269,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex w-full" }, [
-    _c("div", { staticClass: "w-1/4 mr-2" }, [
-      _c("div", { staticClass: "flex flex-col bg-white rounded shadow" }, [
-        _c("div", { staticClass: "flex p-4 border-b text-grey-dark" }, [
-          _vm._v(_vm._s(_vm.resource.name) + " Tables")
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "flex flex-col p-4" },
-          _vm._l(_vm.tables, function(table, idx) {
-            return _c(
-              "div",
-              {
-                key: idx,
-                staticClass:
-                  "cursor-pointer rounded no-underline text-orange hover:text-orange-dark p-1",
-                class: { "bg-orange-lightest": table == _vm.selected_table },
-                on: {
-                  click: function($event) {
-                    _vm.selectTable(table)
+  return _c("div", { staticClass: "flex flex-grow" }, [
+    _c("div", { staticClass: "mr-2" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "flex flex-col bg-white rounded shadow min-h-full max-h-full"
+        },
+        [
+          _c("div", { staticClass: "flex p-4 border-b text-grey-dark" }, [
+            _vm._v(_vm._s(_vm.resource.name) + " Tables")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "flex flex-col p-4 overflow-y-scroll" },
+            _vm._l(_vm.tables, function(table, idx) {
+              return _c(
+                "div",
+                {
+                  key: idx,
+                  staticClass:
+                    "cursor-pointer rounded no-underline text-orange hover:text-orange-dark p-1",
+                  class: { "bg-orange-lightest": table == _vm.selected_table },
+                  on: {
+                    click: function($event) {
+                      _vm.selectTable(table)
+                    }
                   }
-                }
-              },
-              [_vm._v(_vm._s(table.name) + " (" + _vm._s(table.rowCount) + ")")]
-            )
-          })
-        )
-      ])
+                },
+                [
+                  _vm._v(
+                    _vm._s(table.name) + " (" + _vm._s(table.rowCount) + ")"
+                  )
+                ]
+              )
+            })
+          )
+        ]
+      )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "w-3/4 ml-2" }, [
+    _c("div", { staticClass: "flex-1 ml-2" }, [
       _vm.selected_table
         ? _c("div", [
             _c(
@@ -30266,7 +30319,13 @@ var render = function() {
               { staticClass: "flex flex-col bg-white rounded shadow" },
               [
                 _c("div", { staticClass: "flex p-4 border-b text-grey-dark" }, [
-                  _vm._v(_vm._s(_vm.selected_table.name) + " Columns")
+                  _c("div", { staticClass: "flex-1" }, [
+                    _vm._v(_vm._s(_vm.selected_table.name) + " Columns")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { on: { click: _vm.previewSelectedTable } }, [
+                    _vm._v("preview")
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "flex flex-col p-4" }, [
@@ -30300,6 +30359,61 @@ var render = function() {
                               _vm._v(_vm._s(col.nullable))
                             ])
                           ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.preview
+        ? _c("div", { staticClass: "mt-8" }, [
+            _c(
+              "div",
+              { staticClass: "flex flex-col bg-white rounded shadow" },
+              [
+                _c("div", { staticClass: "flex p-4 border-b text-grey-dark" }, [
+                  _c("div", { staticClass: "flex-1" }, [
+                    _vm._v(_vm._s(_vm.selected_table.name) + " Data")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex flex-col p-4" }, [
+                  _c(
+                    "div",
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "flex justify-between text-xs uppercase text-grey-dark border-b py-2"
+                        },
+                        _vm._l(_vm.preview[0], function(row, idx) {
+                          return _c("div", { key: idx, staticClass: "pl-2" }, [
+                            _vm._v(_vm._s(idx))
+                          ])
+                        })
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.preview, function(row, idx) {
+                        return _c(
+                          "div",
+                          {
+                            key: idx,
+                            staticClass:
+                              "flex justify-between text-sm text-grey py-2 hover:bg-orange-lighter hover:text-orange-darker"
+                          },
+                          _vm._l(row, function(entry, idx2) {
+                            return _c(
+                              "div",
+                              { key: idx2, staticClass: "pl-2" },
+                              [_vm._v(_vm._s(entry))]
+                            )
+                          })
                         )
                       })
                     ],

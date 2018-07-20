@@ -19,11 +19,13 @@
     @stack('last')
 </head>
 <body>
-    <nav class="flex justify-between flex-wrap bg-white border-b">
-        <a class="p-4 no-underline text-orange" href="{{route('ads-tools.connections.index')}}">Connections</a>
-    </nav>
-    <div id="ads-tools" class="bg-grey-lighter min-h-screen p-4">
-        @yield('content')
+    <div class="min-h-screen max-h-screen flex flex-col">
+        <nav class="flex justify-between bg-white border-b p-4">
+            <a class="no-underline text-orange" href="{{route('ads-tools.connections.index')}}">Connections</a>
+        </nav>
+        <div id="ads-tools" class="bg-grey-lighter flex flex-1 p-4">
+            @yield('content')
+        </div>
     </div>
     <script src="{{ mix('js/app.js', 'vendor/ads-tools') }}"></script>
 </body>

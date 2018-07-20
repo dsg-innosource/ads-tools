@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col bg-white p-4 rounded shadow">
+    <div class="flex flex-col bg-white p-4 rounded shadow w-full h-full">
         <div class="flex text-xs uppercase text-grey-dark border-b py-2">
             <div class="w-1/5 pl-2">Database</div>
             <div class="w-1/5">Name</div>
