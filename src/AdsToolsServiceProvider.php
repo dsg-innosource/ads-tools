@@ -12,6 +12,7 @@ use ResultData\ADSTools\Console\Commands\CreateFunction;
 use ResultData\ADSTools\Console\Commands\MigrateFunctions;
 use ResultData\ADSTools\Console\Commands\CreateStoredProcedure;
 use ResultData\ADSTools\Console\Commands\MigrateStoredProcedures;
+use Illuminate\Support\Facades\Route;
 
 class ADSToolsServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,19 @@ class ADSToolsServiceProvider extends ServiceProvider
         $this->offerPublishing();
         $this->registerCommands();
         $this->registerHelpers();
+        $this->registerRoutes();
+        $this->defineAssetPublishing();
+    }
+
+    protected function registerRoutes()
+    {
+        Route::group([
+            'prefix' => config('ads-tools.uri', 'ads-tools'),
+            'namespace' => 'ResultData\ADSTools\Http\Controllers',
+            'middleware' => config('ads-tool.middleware', 'web'),
+        ], function () {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        });
     }
 
     public function configure()
@@ -34,6 +48,13 @@ class ADSToolsServiceProvider extends ServiceProvider
             __DIR__ . '/../config/ads-tools.php',
             'ads-tools'
         );
+    }
+
+    public function defineAssetPublishing()
+    {
+        $this->publishes([
+            __DIR__ . '/../public' => public_path('vendor/ads-tools'),
+        ], 'ads-tools-assets');
     }
 
     protected function registerResources()
