@@ -3,7 +3,7 @@
         <div class="mr-2">
             <div class="flex flex-col bg-white rounded shadow min-h-full max-h-full">
                 <div class="flex p-4 border-b text-grey-dark">{{resource.name}} Tables</div>
-                <div class="flex flex-col p-4 overflow-y-scroll">
+                <div class="flex flex-col p-4 overflow-y-auto text-xs">
                     <div
                         v-for="(table, idx) in tables"
                         :key="idx"
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex-1 ml-2">
+        <div class="flex-1 ml-2 overflow-y-auto">
             <div v-if="selected_table">
                 <div class="flex flex-col bg-white rounded shadow">
                     <div class="flex p-4 border-b text-grey-dark">
