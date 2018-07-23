@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="min-h-screen max-h-screen flex flex-col">
-        <nav class="flex justify-between bg-white border-b p-4">
+        <nav class="flex justify-between bg-white border-b p-4 flex-no-shrink">
             <a class="no-underline text-orange" href="{{route('ads-tools.connections.index')}}">Connections</a>
         </nav>
         <div id="ads-tools" class="bg-grey-lighter flex flex-1 p-4">
