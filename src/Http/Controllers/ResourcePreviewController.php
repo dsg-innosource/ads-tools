@@ -9,6 +9,6 @@ class ResourcePreviewController extends Controller
 {
     public function show($connectionName)
     {
-        return DB::connection($connectionName)->table(request('name'))->limit(30)->get();
+        return DB::connection($connectionName)->table(request('name'))->limit(5)->get();
     }
 }

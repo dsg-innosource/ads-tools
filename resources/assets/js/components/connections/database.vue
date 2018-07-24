@@ -13,12 +13,12 @@
                 </div>
             </div>
         </div>
-        <div class="flex-1 ml-2 overflow-y-auto">
+        <div class="flex-1 ml-2 overflow-y-auto pr-1" ref="main">
             <div v-if="selected_table">
                 <div class="flex flex-col bg-white rounded shadow">
                     <div class="flex p-4 border-b text-grey-dark">
                         <div class="flex-1">{{selected_table.name}} Columns</div>
-                        <div @click="previewSelectedTable">preview</div>
+                        <div @click="previewSelectedTable" class="text-xs uppercase bg-grey-light rounded px-2 py-1 cursor-pointer">preview</div>
                     </div>
                     <div class="flex flex-col p-4">
                         <div>
@@ -38,19 +38,21 @@
                     </div>
                 </div>
             </div>
-            <div v-if="preview" class="mt-8">
+            <div v-if="preview" class="mt-8" :style="'max-width: ' + previewWidth + 'px;'">
                 <div class="flex flex-col bg-white rounded shadow">
                     <div class="flex p-4 border-b text-grey-dark">
                         <div class="flex-1">{{selected_table.name}} Data</div>
                     </div>
                     <div class="flex flex-col p-4">
-                        <div>
-                            <div class="flex justify-between text-xs uppercase text-grey-dark border-b py-2">
-                                <div class="pl-2" v-for="(row, idx) in preview[0]" :key="idx">{{idx}}</div>
-                            </div>
-                            <div class="flex justify-between text-sm text-grey py-2 hover:bg-orange-lighter hover:text-orange-darker" v-for="(row, idx) in preview" :key="idx">
-                                <div v-for="(entry, idx2) in row" :key="idx2" class="pl-2">{{entry}}</div>
-                            </div>
+                        <div class="overflow-auto">
+                            <table class="text-xs">
+                                <tr class="uppercase text-grey-dark font-normal">
+                                    <th v-for="(row, idx) in preview[0]" :key="idx" class="border border-b-2 p-2" style="min-width: 100px;">{{idx}}</th>
+                                </tr>
+                                <tr v-for="(row, idx) in preview" :key="idx" class="text-grey">
+                                    <td v-for="(entry, idx2) in row" :key="idx2" class="p-2 border text-center">{{entry}}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -66,26 +68,33 @@ export default {
     data() {
         return {
             selected_table: null,
-            preview: null
+            preview: null,
+            previewWidth: 0
         }
     },
     mounted() {
-        this.selected_table = this.tables[0];
+        this.selected_table = this.tables[4];
+        this.previewSelectedTable();
     },
     computed: {
         tables() {
             return this.resource.tables;
+        },
+        mainWidth() {
+            return this.$refs.main.offsetWidth;
         }
     },
     methods: {
         selectTable(table) {
             this.selected_table = table;
+            this.preview = null;
         },
         previewSelectedTable() {
             var vThis = this;
             axios.post(top.location.href + '/preview', this.selected_table)
                 .then(response => {
                     vThis.preview = response.data;
+                    vThis.previewWidth = this.mainWidth;
                 })
         }
     }
