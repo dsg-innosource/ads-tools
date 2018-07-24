@@ -30233,8 +30233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        this.selected_table = this.tables[4];
-        this.previewSelectedTable();
+        this.selected_table = this.tables[0];
     },
 
     computed: {

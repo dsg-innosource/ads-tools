@@ -20,8 +20,9 @@
 </head>
 <body>
     <div class="min-h-screen max-h-screen flex flex-col">
-        <nav class="flex justify-between bg-white border-b p-4 flex-no-shrink">
-            <a class="no-underline text-orange" href="{{route('ads-tools.connections.index')}}">Connections</a>
+        <nav class="flex bg-white border-b p-4 flex-no-shrink">
+            <div class="mr-4">ADS Tools</div>
+            <a class="no-underline text-orange text-sm" href="{{route('ads-tools.connections.index')}}">Connections</a>
         </nav>
         <div id="ads-tools" class="bg-grey-lighter flex flex-1 p-4">
             @yield('content')

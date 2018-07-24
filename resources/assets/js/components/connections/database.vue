@@ -73,8 +73,7 @@ export default {
         }
     },
     mounted() {
-        this.selected_table = this.tables[4];
-        this.previewSelectedTable();
+        this.selected_table = this.tables[0];
     },
     computed: {
         tables() {
