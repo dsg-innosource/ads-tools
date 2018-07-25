@@ -23,6 +23,6 @@ class Connection
         $connection = self::getConnections()->filter(function ($c) use ($name) {
             return $c['name'] == $name;
         })->first();
-        return new Database($connection);
+        return Database::get($connection);
     }
 }

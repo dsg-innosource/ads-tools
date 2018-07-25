@@ -9,7 +9,10 @@
                         :key="idx"
                         :class="{'bg-orange-lightest' : table == selected_table}"
                         @click="selectTable(table)"
-                        class="cursor-pointer rounded no-underline text-orange hover:text-orange-dark p-1">{{table.name}} ({{table.rowCount}})</div>
+                        class="cursor-pointer rounded no-underline text-orange hover:text-orange-dark p-1"
+                    >
+                        <span v-if="table.schema">{{table.schema}}.</span>{{table.name}} ({{table.rowCount}})
+                    </div>
                 </div>
             </div>
         </div>

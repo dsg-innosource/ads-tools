@@ -17,19 +17,29 @@ class Database
         $this->getTables();
     }
 
+    public static function get($connection)
+    {
+        switch ($connection['driver']) {
+            case 'mysql':
+                return new MySQL($connection);
+                break;
+            case 'sqlsrv':
+                return new SqlSrv($connection);
+                break;
+        }
+    }
+
     public function getTables()
     {
         $c = DB::connection($this->connection['name'])->getPdo();
 
-        $s = $c->prepare("select * from information_schema.tables where table_schema = '{$this->name}'");
+        $s = $c->prepare($this->getTablesQuery());
 
         $s->execute();
 
         $results = $s->fetchAll(\PDO::FETCH_ASSOC);
 
-        $this->tables = collect($results)->map(function ($t) {
-            return new Table($t['TABLE_NAME'], $t['TABLE_TYPE'], $t['TABLE_ROWS'], $this);
-        });
+        $this->tables = $this->formatTables($results);
 
         return $this;
     }

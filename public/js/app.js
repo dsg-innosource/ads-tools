@@ -30220,6 +30220,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -30300,8 +30303,14 @@ var render = function() {
                   }
                 },
                 [
+                  table.schema
+                    ? _c("span", [_vm._v(_vm._s(table.schema) + ".")])
+                    : _vm._e(),
                   _vm._v(
-                    _vm._s(table.name) + " (" + _vm._s(table.rowCount) + ")"
+                    _vm._s(table.name) +
+                      " (" +
+                      _vm._s(table.rowCount) +
+                      ")\n                "
                   )
                 ]
               )
