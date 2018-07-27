@@ -2,6 +2,8 @@
 
 namespace ResultData\ADSTools;
 
+use Illuminate\Support\Facades\DB;
+
 class SqlSrv extends Database
 {
     public function __construct($connection)
@@ -51,5 +53,33 @@ class SqlSrv extends Database
                 WHERE table_name = '$table->name'
                 AND table_schema = '$table->schema'
             ";
+    }
+
+    public function getPreviewFromTable($table)
+    {
+        $data = DB::connection($this->connection['name'])->table($table)->limit(5)->get();
+        return self::convert_from_latin1_to_utf8_recursively($data);
+    }
+
+    public static function convert_from_latin1_to_utf8_recursively($dat)
+    {
+        if (is_string($dat)) {
+            return utf8_encode($dat);
+        } elseif (is_array($dat)) {
+            $ret = [];
+            foreach ($dat as $i => $d) {
+                $ret[$i] = self::convert_from_latin1_to_utf8_recursively($d);
+            }
+
+            return $ret;
+        } elseif (is_object($dat)) {
+            foreach ($dat as $i => $d) {
+                $dat->$i = self::convert_from_latin1_to_utf8_recursively($d);
+            }
+
+            return $dat;
+        } else {
+            return $dat;
+        }
     }
 }

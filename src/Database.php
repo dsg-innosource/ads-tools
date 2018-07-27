@@ -44,6 +44,11 @@ class Database
         return $this;
     }
 
+    public function getPreviewFromTable($table)
+    {
+        return DB::connection($this->connection['name'])->table($table)->limit(5)->get();
+    }
+
     public function __toString()
     {
         return json_encode($this->toArray());
