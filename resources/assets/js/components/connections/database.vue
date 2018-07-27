@@ -3,13 +3,13 @@
         <div class="mr-2">
             <div class="flex flex-col bg-white rounded shadow min-h-full max-h-full">
                 <div class="flex p-4 border-b text-grey-dark">{{resource.name}} Tables</div>
-                <div class="flex flex-col p-4 overflow-y-auto text-xs">
+                <div class="flex flex-col py-4 overflow-y-auto text-xs">
                     <div
                         v-for="(table, idx) in tables"
                         :key="idx"
                         :class="{'bg-orange-lightest' : table == selected_table}"
                         @click="selectTable(table)"
-                        class="cursor-pointer rounded no-underline text-orange hover:text-orange-dark p-1"
+                        class="cursor-pointer no-underline text-orange hover:text-orange-dark hover:bg-orange-lightest px-4 py-1 font-mono"
                     >
                         <span v-if="table.schema">{{table.schema}}.</span>{{table.name}} ({{table.rowCount}})
                     </div>
@@ -17,10 +17,30 @@
             </div>
         </div>
         <div class="flex-1 ml-2 overflow-y-auto pr-1" ref="main">
+            <div v-if="preview" class="mb-8" :style="'max-width: ' + previewWidth + 'px;'">
+                <div class="flex flex-col bg-white rounded shadow">
+                    <div class="flex p-4 border-b text-grey-dark justify-between">
+                        <div class="flex-1"><span class="font-mono text-orange">{{selected_table.name}}</span> Random Data</div>
+                        <div @click="preview = null" class="text-xs uppercase bg-grey-light rounded px-2 py-1 cursor-pointer">Close</div>
+                    </div>
+                    <div class="flex flex-col p-4">
+                        <div class="overflow-auto">
+                            <table class="text-xs">
+                                <tr class="uppercase text-grey-dark font-normal">
+                                    <th v-for="(row, idx) in preview[0]" :key="idx" class="border border-b-2 p-2" style="min-width: 100px;">{{idx}}</th>
+                                </tr>
+                                <tr v-for="(row, idx) in preview" :key="idx" class="text-grey group">
+                                    <td v-for="(entry, idx2) in row" :key="idx2" class="p-2 border text-center group-hover:text-orange-darker group-hover:bg-orange-lighter">{{entry}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div v-if="selected_table">
                 <div class="flex flex-col bg-white rounded shadow">
                     <div class="flex p-4 border-b text-grey-dark">
-                        <div class="flex-1">{{selected_table.name}} Columns</div>
+                        <div class="flex-1"><span class="font-mono text-orange">{{selected_table.name}}</span> Columns</div>
                         <div @click="previewSelectedTable" class="text-xs uppercase bg-grey-light rounded px-2 py-1 cursor-pointer">preview</div>
                     </div>
                     <div class="flex flex-col p-4">
@@ -37,25 +57,6 @@
                                 <div class="w-64">{{col.default}}</div>
                                 <div class="w-32 pr-2">{{col.nullable}}</div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div v-if="preview" class="mt-8" :style="'max-width: ' + previewWidth + 'px;'">
-                <div class="flex flex-col bg-white rounded shadow">
-                    <div class="flex p-4 border-b text-grey-dark">
-                        <div class="flex-1">{{selected_table.name}} Data</div>
-                    </div>
-                    <div class="flex flex-col p-4">
-                        <div class="overflow-auto">
-                            <table class="text-xs">
-                                <tr class="uppercase text-grey-dark font-normal">
-                                    <th v-for="(row, idx) in preview[0]" :key="idx" class="border border-b-2 p-2" style="min-width: 100px;">{{idx}}</th>
-                                </tr>
-                                <tr v-for="(row, idx) in preview" :key="idx" class="text-grey">
-                                    <td v-for="(entry, idx2) in row" :key="idx2" class="p-2 border text-center">{{entry}}</td>
-                                </tr>
-                            </table>
                         </div>
                     </div>
                 </div>

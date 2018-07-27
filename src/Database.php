@@ -46,7 +46,7 @@ class Database
 
     public function getPreviewFromTable($table)
     {
-        return DB::connection($this->connection['name'])->table($table)->limit(5)->get();
+        return DB::connection($this->connection['name'])->table($table)->inRandomOrder()->limit(5)->get();
     }
 
     public function __toString()

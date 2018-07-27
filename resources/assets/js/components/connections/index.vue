@@ -10,7 +10,7 @@
         </div>
         <div class="flex text-sm text-grey py-2 hover:bg-grey-lighter hover:text-grey-darker" v-for="(connection, idx) in connections" :key="idx">
             <div class="w-1/5 pl-2">
-                <a :href="baseUrl + '/connections/' + connection.name" class="no-underline text-orange hover:text-orange-dark">{{connection.database}}</a>
+                <a :href="baseUrl + '/connections/' + connection.name" class="font-mono no-underline text-orange hover:text-orange-dark">{{connection.database}}</a>
             </div>
             <div class="w-1/5">{{connection.name}}</div>
             <div class="w-1/5">{{connection.driver}}</div>

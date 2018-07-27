@@ -29942,7 +29942,7 @@ var render = function() {
                 "a",
                 {
                   staticClass:
-                    "no-underline text-orange hover:text-orange-dark",
+                    "font-mono no-underline text-orange hover:text-orange-dark",
                   attrs: {
                     href: _vm.baseUrl + "/connections/" + connection.name
                   }
@@ -30223,6 +30223,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -30287,14 +30288,14 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "flex flex-col p-4 overflow-y-auto text-xs" },
+            { staticClass: "flex flex-col py-4 overflow-y-auto text-xs" },
             _vm._l(_vm.tables, function(table, idx) {
               return _c(
                 "div",
                 {
                   key: idx,
                   staticClass:
-                    "cursor-pointer rounded no-underline text-orange hover:text-orange-dark p-1",
+                    "cursor-pointer no-underline text-orange hover:text-orange-dark hover:bg-orange-lightest px-4 py-1 font-mono",
                   class: { "bg-orange-lightest": table == _vm.selected_table },
                   on: {
                     click: function($event) {
@@ -30324,6 +30325,101 @@ var render = function() {
       "div",
       { ref: "main", staticClass: "flex-1 ml-2 overflow-y-auto pr-1" },
       [
+        _vm.preview
+          ? _c(
+              "div",
+              {
+                staticClass: "mb-8",
+                style: "max-width: " + _vm.previewWidth + "px;"
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "flex flex-col bg-white rounded shadow" },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "flex p-4 border-b text-grey-dark justify-between"
+                      },
+                      [
+                        _c("div", { staticClass: "flex-1" }, [
+                          _c("span", { staticClass: "font-mono text-orange" }, [
+                            _vm._v(_vm._s(_vm.selected_table.name))
+                          ]),
+                          _vm._v(" Random Data")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "text-xs uppercase bg-grey-light rounded px-2 py-1 cursor-pointer",
+                            on: {
+                              click: function($event) {
+                                _vm.preview = null
+                              }
+                            }
+                          },
+                          [_vm._v("Close")]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex flex-col p-4" }, [
+                      _c("div", { staticClass: "overflow-auto" }, [
+                        _c(
+                          "table",
+                          { staticClass: "text-xs" },
+                          [
+                            _c(
+                              "tr",
+                              {
+                                staticClass:
+                                  "uppercase text-grey-dark font-normal"
+                              },
+                              _vm._l(_vm.preview[0], function(row, idx) {
+                                return _c(
+                                  "th",
+                                  {
+                                    key: idx,
+                                    staticClass: "border border-b-2 p-2",
+                                    staticStyle: { "min-width": "100px" }
+                                  },
+                                  [_vm._v(_vm._s(idx))]
+                                )
+                              })
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.preview, function(row, idx) {
+                              return _c(
+                                "tr",
+                                { key: idx, staticClass: "text-grey group" },
+                                _vm._l(row, function(entry, idx2) {
+                                  return _c(
+                                    "td",
+                                    {
+                                      key: idx2,
+                                      staticClass:
+                                        "p-2 border text-center group-hover:text-orange-darker group-hover:bg-orange-lighter"
+                                    },
+                                    [_vm._v(_vm._s(entry))]
+                                  )
+                                })
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _vm.selected_table
           ? _c("div", [
               _c(
@@ -30335,7 +30431,10 @@ var render = function() {
                     { staticClass: "flex p-4 border-b text-grey-dark" },
                     [
                       _c("div", { staticClass: "flex-1" }, [
-                        _vm._v(_vm._s(_vm.selected_table.name) + " Columns")
+                        _c("span", { staticClass: "font-mono text-orange" }, [
+                          _vm._v(_vm._s(_vm.selected_table.name))
+                        ]),
+                        _vm._v(" Columns")
                       ]),
                       _vm._v(" "),
                       _c(
@@ -30390,80 +30489,6 @@ var render = function() {
                 ]
               )
             ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.preview
-          ? _c(
-              "div",
-              {
-                staticClass: "mt-8",
-                style: "max-width: " + _vm.previewWidth + "px;"
-              },
-              [
-                _c(
-                  "div",
-                  { staticClass: "flex flex-col bg-white rounded shadow" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "flex p-4 border-b text-grey-dark" },
-                      [
-                        _c("div", { staticClass: "flex-1" }, [
-                          _vm._v(_vm._s(_vm.selected_table.name) + " Data")
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "flex flex-col p-4" }, [
-                      _c("div", { staticClass: "overflow-auto" }, [
-                        _c(
-                          "table",
-                          { staticClass: "text-xs" },
-                          [
-                            _c(
-                              "tr",
-                              {
-                                staticClass:
-                                  "uppercase text-grey-dark font-normal"
-                              },
-                              _vm._l(_vm.preview[0], function(row, idx) {
-                                return _c(
-                                  "th",
-                                  {
-                                    key: idx,
-                                    staticClass: "border border-b-2 p-2",
-                                    staticStyle: { "min-width": "100px" }
-                                  },
-                                  [_vm._v(_vm._s(idx))]
-                                )
-                              })
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.preview, function(row, idx) {
-                              return _c(
-                                "tr",
-                                { key: idx, staticClass: "text-grey" },
-                                _vm._l(row, function(entry, idx2) {
-                                  return _c(
-                                    "td",
-                                    {
-                                      key: idx2,
-                                      staticClass: "p-2 border text-center"
-                                    },
-                                    [_vm._v(_vm._s(entry))]
-                                  )
-                                })
-                              )
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              ]
-            )
           : _vm._e()
       ]
     )

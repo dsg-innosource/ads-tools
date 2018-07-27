@@ -18,7 +18,7 @@
     </script>
     @stack('last')
 </head>
-<body>
+<body class="font-light text-grey-dark">
     <div class="min-h-screen max-h-screen flex flex-col">
         <nav class="flex bg-white border-b p-4 flex-no-shrink">
             <div class="mr-4">ADS Tools</div>
