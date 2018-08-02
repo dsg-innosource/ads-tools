@@ -14,12 +14,15 @@ class Table
 
     public $database;
 
+    public $databaseName;
+
     public $columns;
 
     public function __construct($name, $type, $schema, $rowCount, Database $database)
     {
         $this->name = $name;
         $this->database = $database;
+        $this->databaseName = $database->name;
         $this->schema = $schema;
         $this->rowCount = $rowCount;
 
@@ -33,10 +36,11 @@ class Table
 
                 break;
         };
-        $this->getColumns();
+        
+        $this->loadColumns();
     }
 
-    public function getColumns()
+    public function loadColumns()
     {
         $c = DB::connection($this->database->connection['name'])->getPdo();
 
@@ -63,7 +67,7 @@ class Table
             'type' => $this->type,
             'rowCount' => $this->rowCount,
             'columns' => $this->columns->map->toArray()->toArray(),
-            'database' => $this->database->name,
+            'database' => $this->databaseName,
         ];
     }
 }

@@ -10,7 +10,7 @@ class SqlSrv extends Database
     {
         $this->connection = $connection;
         $this->name = $connection['database'];
-        $this->getTables();
+        $this->loadTables();
     }
 
     public function formatTables($results)
@@ -27,7 +27,8 @@ class SqlSrv extends Database
                 $c['COLUMN_NAME'],
                 $c['DATA_TYPE'],
                 $c['COLUMN_DEFAULT'],
-                $c['IS_NULLABLE']
+                $c['IS_NULLABLE'],
+                $c['CHARACTER_MAXIMUM_LENGTH']
             );
         });
     }

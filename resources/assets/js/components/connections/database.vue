@@ -41,6 +41,7 @@
                 <div class="flex flex-col bg-white rounded shadow">
                     <div class="flex p-4 border-b text-grey-dark">
                         <div class="flex-1"><span class="font-mono text-orange">{{selected_table.name}}</span> Columns</div>
+                        <div @click="createTierOneMigration" class="text-xs uppercase bg-grey-light rounded px-2 py-1 cursor-pointer mr-2">create tier1 migration</div>
                         <div @click="previewSelectedTable" class="text-xs uppercase bg-grey-light rounded px-2 py-1 cursor-pointer">preview</div>
                     </div>
                     <div class="flex flex-col p-4">
@@ -98,6 +99,16 @@ export default {
                 .then(response => {
                     vThis.preview = response.data;
                     vThis.previewWidth = this.mainWidth;
+                })
+        },
+        createTierOneMigration() {
+            var vThis = this;
+            axios.post(top.location.href + '/migrations/' + vThis.selected_table.name, {
+                type : 't1',
+                columns: vThis.selected_table.columns
+            })
+                .then(response => {
+                    console.log(response);
                 })
         }
     }
