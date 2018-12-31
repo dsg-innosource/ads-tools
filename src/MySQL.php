@@ -24,7 +24,8 @@ class MySQL extends Database
                 $c['COLUMN_NAME'],
                 $c['COLUMN_TYPE'],
                 $c['COLUMN_DEFAULT'],
-                $c['IS_NULLABLE']
+                $c['IS_NULLABLE'],
+                $c['CHARACTER_MAXIMUM_LENGTH']
             );
         });
     }

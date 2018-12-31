@@ -14,7 +14,7 @@ class Database
     {
         $this->connection = $connection;
         $this->name = $connection['database'];
-        $this->getTables();
+        $this->loadTables();
     }
 
     public static function get($connection)
@@ -29,7 +29,7 @@ class Database
         }
     }
 
-    public function getTables()
+    public function loadTables()
     {
         $c = DB::connection($this->connection['name'])->getPdo();
 

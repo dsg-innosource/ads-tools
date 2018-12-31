@@ -30224,6 +30224,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -30260,6 +30261,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post(top.location.href + '/preview', this.selected_table).then(function (response) {
                 vThis.preview = response.data;
                 vThis.previewWidth = _this.mainWidth;
+            });
+        },
+        createTierOneMigration: function createTierOneMigration() {
+            var vThis = this;
+            axios.post(top.location.href + '/migrations/' + vThis.selected_table.name, {
+                type: 't1',
+                columns: vThis.selected_table.columns
+            }).then(function (response) {
+                console.log(response);
             });
         }
     }
@@ -30436,6 +30446,16 @@ var render = function() {
                         ]),
                         _vm._v(" Columns")
                       ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "text-xs uppercase bg-grey-light rounded px-2 py-1 cursor-pointer mr-2",
+                          on: { click: _vm.createTierOneMigration }
+                        },
+                        [_vm._v("create tier1 migration")]
+                      ),
                       _vm._v(" "),
                       _c(
                         "div",

@@ -12,12 +12,15 @@ class Column
 
     public $nullable;
 
-    public function __construct($name, $type, $default, $nullable)
+    public $maxLength;
+
+    public function __construct($name, $type, $default, $nullable, $maxLength)
     {
         $this->name = $name;
         $this->type = $type;
         $this->default = $default;
         $this->nullable = $nullable;
+        $this->maxLength = $maxLength;
     }
 
     public function __toString()
@@ -32,6 +35,7 @@ class Column
             'type' => $this->type,
             'default' => $this->default,
             'nullable' => $this->nullable,
+            'maxLength' => $this->maxLength,
         ];
     }
 }
