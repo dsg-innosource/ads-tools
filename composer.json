@@ -1,27 +1,31 @@
 {
-    "name": "resultdata/ads-tools",
+    "name": "dsginnosource/ads-tools",
     "description": "A package containing miscellaneous ADS tools.",
     "authors": [
         {
             "name": "Vince Mitchell",
-            "email": "vince.mitchell@resultdata.com"
+            "email": "vmitchell@innosource.com"
+        },
+        {
+            "name": "Joe Fusco",
+            "email": "jfusco@innosource.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "ResultData\\ADSTools\\": "src/"
+            "InnoSource\\ADSTools\\": "src/"
         }
     },
     "require": {
-        "illuminate/contracts": ">= 5.5",
-        "illuminate/console": ">= 5.5",
-        "illuminate/support": ">= 5.5",
-        "illuminate/database": ">= 5.5"
+        "illuminate/contracts": ">= 7.0",
+        "illuminate/console": ">= 7.0",
+        "illuminate/support": ">= 7.0",
+        "illuminate/database": ">= 7.0"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "ResultData\\ADSTools\\ADSToolsServiceProvider"
+                "InnoSource\\ADSTools\\ADSToolsServiceProvider"
             ]
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ResultData\ADSTools;
+namespace InnoSource\ADSTools;
 
 use Illuminate\Support\Facades\DB;
 
@@ -23,8 +23,8 @@ class Database
             case 'mysql':
                 return new MySQL($connection);
                 break;
-            case 'sqlsrv':
-                return new SqlSrv($connection);
+            case 'sqlsvr':
+                return new SqlSvr($connection);
                 break;
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ResultData\ADSTools;
+namespace InnoSource\ADSTools;
 
 use Illuminate\Support\Facades\DB;
 

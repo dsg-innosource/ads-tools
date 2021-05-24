@@ -1,6 +1,6 @@
 <?php
 
-namespace ResultData\ADSTools\Console\Commands;
+namespace InnoSource\ADSTools\Console\Commands;
 
 use Illuminate\Console\Command;
 

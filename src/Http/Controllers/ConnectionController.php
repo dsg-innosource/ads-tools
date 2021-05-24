@@ -1,8 +1,8 @@
 <?php
 
-namespace ResultData\ADSTools\Http\Controllers;
+namespace InnoSource\ADSTools\Http\Controllers;
 
-use ResultData\ADSTools\Connection;
+use InnoSource\ADSTools\Connection;
 use Illuminate\Support\Facades\View;
 
 class ConnectionController extends Controller
