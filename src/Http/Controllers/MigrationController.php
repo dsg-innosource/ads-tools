@@ -1,9 +1,9 @@
 <?php
 
-namespace ResultData\ADSTools\Http\Controllers;
+namespace InnoSource\ADSTools\Http\Controllers;
 
-use ResultData\ADSTools\Connection;
-use ResultData\ADSTools\Migration;
+use InnoSource\ADSTools\Connection;
+use InnoSource\ADSTools\Migration;
 
 class MigrationController extends Controller
 {

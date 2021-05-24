@@ -8,7 +8,7 @@ You can install the ADS Tools via composer using the following steps:
 
 ```
     {
-        "url": "https://github.com/resultdata/ads-tools.git",
+        "url": "https://github.com/dsg-innosource/ads-tools.git",
         "type": "git"
     }
 ```
@@ -16,7 +16,7 @@ You can install the ADS Tools via composer using the following steps:
 2. Add the package to your `composer.json` require list using:
 
 ```
-    composer require resultdata/ads-tools
+    composer require dsg-innosource/ads-tools
 ```
 
 ## Available Commands

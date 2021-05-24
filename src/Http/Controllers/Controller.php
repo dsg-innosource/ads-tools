@@ -1,6 +1,6 @@
 <?php
 
-namespace ResultData\ADSTools\Http\Controllers;
+namespace InnoSource\ADSTools\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
