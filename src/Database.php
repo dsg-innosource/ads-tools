@@ -23,8 +23,8 @@ class Database
             case 'mysql':
                 return new MySQL($connection);
                 break;
-            case 'sqlsrv':
-                return new SqlSrv($connection);
+            case 'sqlsvr':
+                return new SqlSvr($connection);
                 break;
         }
     }

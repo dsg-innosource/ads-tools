@@ -4,7 +4,7 @@ namespace InnoSource\ADSTools;
 
 use Illuminate\Support\Facades\DB;
 
-class SqlSrv extends Database
+class SqlSvr extends Database
 {
     public function __construct($connection)
     {
